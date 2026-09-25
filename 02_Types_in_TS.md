@@ -301,3 +301,5 @@ Represents a value that has not been assigned.
 ```ts
 let result: unde
 ```
+
+[Check out the Types in TS code](./src/2_Types_in_TS.ts)
