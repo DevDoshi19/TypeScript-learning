@@ -8,15 +8,52 @@ type User = {
     | { role: "Customer"; orders: string[] }
     | { role: "Guest"; expiresAt: Date }
 );
+type AnotherWayofCretingUser =
+    | {
+        id: number;
+        name: string;
+        role: "Admin";
+        permissions: string[];
+    }
+    | {
+        id: number;
+        name: string;
+        role: "Customer";
+        orders: string[];
+    }
+    | {
+        id: number;
+        name: string;
+        role: "Guest";
+        expiresAt: Date;
+    };
+type BaseUser = {
+    id: number;
+    name: string;
+};
+
+type AnotherUser =
+    | (BaseUser & {
+        role: "Admin";
+        permissions: string[];
+    })
+    | (BaseUser & {
+        role: "Customer";
+        orders: string[];
+    })
+    | (BaseUser & {
+        role: "Guest";
+        expiresAt: Date;
+    });
 
 function describeUser(user:User):string{
     if (user.role === "Admin"){
-        return `${user.name} is an admin` 
+        return `${user.name} is a admin` 
     } 
     else if(user.role === "Customer"){
-        return `${user.name} is an Customer`
+        return `${user.name} is a Customer`
     }
-    return `${user.name} is an guest`
+    return `${user.name} is a guest`
 }
 
 const admin :User = {
@@ -36,11 +73,15 @@ const guest:User = {
 
 // 2. Generic API Response
 
-type ApiResponse<T> = {
-    success: boolean;
-    data?: T;
-    error?: string;
-}
+type ApiResponse<T> =
+    | {
+        success: true;
+        data: T;
+    }
+    | {
+        success: false;
+        error: string;
+    };
 
 const userResponse: ApiResponse<User> = {
     success: true,
@@ -65,7 +106,7 @@ const errorResponse: ApiResponse<product> = {
 }
 function handleResponse<T>(response: ApiResponse<T>): T | null{
     if (response.success) {
-        return response.data!;
+        return response.data;
     }
     return null;
 }

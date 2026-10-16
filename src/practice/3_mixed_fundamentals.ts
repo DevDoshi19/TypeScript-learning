@@ -124,3 +124,43 @@ const errorResponse:ApiResponse = {
     message: "Invalid request"
 }
 
+// scenario: An order management system
+// 1. Define the interfaces for each order status
+interface PendingOrder {
+  status: "pending";
+  orderId: string;
+}
+
+interface CompletedOrder {
+  status: "completed";
+  orderId: string;
+  completedAt: Date;
+}
+
+interface FailedOrder {
+  status: "failed";
+  orderId: string;
+  reason: string;
+}
+
+// 2. Create the Discriminated Union type
+type OrderStatus = PendingOrder | CompletedOrder | FailedOrder;
+
+// 3. Write the descriptive function using type narrowing
+function describeOrder(order: OrderStatus): string {
+  switch (order.status) {
+    case "pending":
+      return `Order ${order.orderId} is currently pending processing.`;
+      
+    case "completed":
+      return `Order ${order.orderId} was successfully completed at ${order.completedAt.toISOString()}.`;
+      
+    case "failed":
+      return `Order ${order.orderId} failed. Reason: ${order.reason}`;
+      
+    default:
+      // Exhaustiveness check to ensure all cases are handled at compile-time
+      const _exhaustiveCheck: never = order;
+      return _exhaustiveCheck;
+  }
+}

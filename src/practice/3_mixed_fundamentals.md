@@ -253,3 +253,11 @@ OOP / Generics / Async / Axios 🚀
 ```
 
 Go straight into `03_mixed_fundamentals.ts`. This is where the real TypeScript muscle starts building. 💪
+
+Scenario: An order management system
+An order can have one of three statuses:
+- "pending" — it has an orderId.
+- "completed" — it has an orderId and completedAt.
+- "failed" — it has an orderId and reason.
+Your task will be to design an OrderStatus discriminated union and write a describeOrder() function that returns an appropriate message for each status.
+Don't worry about speed. First try it from memory; check your old notes if you get stuck. That's how we'll build fluency.
