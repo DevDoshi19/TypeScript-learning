@@ -12,8 +12,13 @@ interface Failed{
     status: "failed";
     reason:string;
 }
+// interface Fail{
+//     orderId:number;
+//     status: "fail";
+//     abc:string;
+// }
 
-type Order = Pending | Completed | Failed;
+type Order = Pending | Completed | Failed ;
 
 function assertNever(value: never): never {
     throw new Error(`Unexpected value: ${value}`);
@@ -53,6 +58,12 @@ describeOrder({
     reason: "Payment declined"
 });
 // "Order 103 failed: Payment declined"
+
+// describeOrder({
+//     status: "fail",
+//     orderId: 103,
+//     abc: "Payment declined"
+// });
 
 // we can see the error property completeAt is missing 
 // const invalidOrder: Order = {
